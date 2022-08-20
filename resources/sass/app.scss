@@ -1,0 +1,32 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Cabin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css');
+
+// Vuetify
+@import '~vuetify/dist/vuetify.min.css';
+
+// Variables
+@import 'variables';
+
+// Main styles
+.v-application.theme--light {
+    font-family: 'Dosis', sans-serif;
+    font-size: 13px;
+    color: $theme_color_text;
+    background-color: $theme_color_primary;
+
+    .primary {
+        background-color: $theme_color_primary!important;
+        border-color: $theme_color_primary!important;
+    }
+
+    .primary--text {
+        color: $theme_color_primary!important;
+        caret-color: $theme_color_primary!important;
+    }
+}
+
+
