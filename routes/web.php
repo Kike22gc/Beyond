@@ -49,3 +49,4 @@ Route::post('/api/team/create', [TeamController::class, 'createTeam']);
 //API Jugadores
 Route::post('/api/player/create', [PlayerController::class, 'createPlayer']);
 Route::post('/api/player/getPlayers', [PlayerController::class, 'getPlayersByTeamID']);
+Route::post('/api/player/upload-image', [PlayerController::class, 'uploadImagen']);

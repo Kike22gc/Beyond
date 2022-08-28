@@ -24,10 +24,17 @@
                                 v-for="(n, index) in listPlayers" 
                                 :key="index"
                                 >
-                                <v-card>
+                                <v-card height="520px">
+                                    <v-img v-if="listPlayers[index].player_face_route == null" src="images/icons/icon_no-face.png" height="450px" width="100%"></v-img><!--JUGADOR SIN FOTO-->
+                                    <v-img v-if="listPlayers[index].player_face_route != null" :src="listPlayers[index].player_face_route" height="450px" width="100%"></v-img><!--JUGADOR CON FOTO-->
                                     <v-card-title>
                                         <v-spacer></v-spacer>
-                                            {{ listPlayers[index].player_name }} {{ listPlayers[index].player_surname }} 
+                                            <span v-if="listPlayers[index].player_alias === null" >
+                                                {{ listPlayers[index].player_number }} - {{ listPlayers[index].player_name }} {{ listPlayers[index].player_surname }}
+                                            </span>
+                                            <span v-if="listPlayers[index].player_alias !== null" >
+                                                {{ listPlayers[index].player_number }} - {{ listPlayers[index].player_alias }}
+                                            </span> 
                                         <v-spacer></v-spacer>
                                     </v-card-title>
                                 </v-card>

@@ -18,7 +18,10 @@ class Players extends Model
         'team_id',
         'player_name',
         'player_surname',
+        'player_alias',
         'player_birthdate',
+        'player_face_route',
+        'player_number',
     ];
 
     protected bool $_isRoot = false;

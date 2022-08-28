@@ -27,6 +27,15 @@
         color: $theme_color_primary!important;
         caret-color: $theme_color_primary!important;
     }
+
+    .secondary {
+        background-color: $theme_color_secondary!important;
+    }
+    
+    .secondary--text {
+        color: $theme_color_primary!important;
+        caret-color: $theme_color_primary!important;
+    }
 }
 
 
