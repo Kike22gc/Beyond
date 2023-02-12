@@ -50,3 +50,4 @@ Route::post('/api/team/create', [TeamController::class, 'createTeam']);
 Route::post('/api/player/create', [PlayerController::class, 'createPlayer']);
 Route::post('/api/player/getPlayers', [PlayerController::class, 'getPlayersByTeamID']);
 Route::post('/api/player/upload-image', [PlayerController::class, 'uploadImagen']);
+Route::post('/api/player/edit', [PlayerController::class, 'editPlayer']);

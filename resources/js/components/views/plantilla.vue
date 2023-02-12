@@ -25,15 +25,15 @@
                                 :key="index"
                                 >
                                 <v-card height="520px">
-                                    <v-img v-if="listPlayers[index].player_face_route == null" src="images/icons/icon_no-face.png" height="450px" width="100%"></v-img><!--JUGADOR SIN FOTO-->
-                                    <v-img v-if="listPlayers[index].player_face_route != null" :src="listPlayers[index].player_face_route" height="450px" width="100%"></v-img><!--JUGADOR CON FOTO-->
+                                    <v-img v-if="listPlayers[index].player_face_route == null" @click="ShowPlayer(listPlayers[index])" src="images/icons/icon_no-face.png" height="450px" width="100%"></v-img><!--JUGADOR SIN FOTO-->
+                                    <v-img v-if="listPlayers[index].player_face_route != null" @click="ShowPlayer(listPlayers[index])" :src="listPlayers[index].player_face_route" height="450px" width="100%"></v-img><!--JUGADOR CON FOTO-->
                                     <v-card-title>
                                         <v-spacer></v-spacer>
-                                            <span v-if="listPlayers[index].player_alias === null" >
-                                                {{ listPlayers[index].player_number }} - {{ listPlayers[index].player_name }} {{ listPlayers[index].player_surname }}
+                                            <span v-if="listPlayers[index].player_alias === null" @click="ShowPlayer(listPlayers[index])">
+                                                {{ listPlayers[index].player_name }} {{ listPlayers[index].player_surname }}
                                             </span>
-                                            <span v-if="listPlayers[index].player_alias !== null" >
-                                                {{ listPlayers[index].player_number }} - {{ listPlayers[index].player_alias }}
+                                            <span v-if="listPlayers[index].player_alias !== null" @click="ShowPlayer(listPlayers[index])">
+                                                <h2>{{ listPlayers[index].player_alias.toUpperCase() }} </h2>
                                             </span> 
                                         <v-spacer></v-spacer>
                                     </v-card-title>
@@ -52,6 +52,12 @@
             @cancel="cancel"
         ></nuevo_jugador>
 
+        <ver_jugador
+            v-bind:dialog="showViewPlayer"
+            v-bind:player="player"
+            @cancel="cancel"
+        ></ver_jugador>
+
     </v-app>
 </template>
 
@@ -65,6 +71,8 @@ export default {
         return {
             team_active: null,
             showNewPlayer: false,
+            showViewPlayer: false,
+            player: null,
 
             listPlayers: [],
 
@@ -102,8 +110,14 @@ export default {
             this.showNewPlayer = true;
         },
 
+        ShowPlayer: function(player_select) {
+            this.player = player_select;
+            this.showViewPlayer = true;
+        },
+
         cancel: function () {
             this.showNewPlayer = false;
+            this.showViewPlayer = false;
         }
     },
     

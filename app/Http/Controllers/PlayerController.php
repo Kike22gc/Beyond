@@ -22,13 +22,15 @@ class PlayerController extends BaseController
     {
         $data = $request->all();
 
-        error_log(print_r($data, true));
-
         $team = Players::create([
             'team_id' => $data['team_active'],
             'player_name' => $data['name'],
             'player_surname' => $data['surname'],
             'player_birthdate' => $data['birthdate'],
+            'player_height' => $data['height'],
+            'player_weight' => $data['weight'],
+            'player_number' => $data['number'],
+            'player_posicion' => $data['posicion'],
             'player_face_route' => $data['picture'],
             'player_alias' => $data['alias'],
         ]);
@@ -37,6 +39,35 @@ class PlayerController extends BaseController
             'message' => 'Equipo Creado Correctamente',
             'status' => 'OK',
             'id' => $team->id
+        ]);
+    }
+
+    public function editPlayer(Request $request)
+    {
+        $data = $request->all();
+        error_log(print_r($data, true));
+
+        $player = Players::where('player_id', $data['id'])->first();
+
+        $player->player_name = $data['name'];
+        $player->player_surname = $data['surname'];
+        $player->player_birthdate = $data['birthdate'];
+        $player->player_height = $data['height'];
+        $player->player_weight = $data['weight'];
+        $player->player_number = $data['number'];
+        $player->player_posicion = $data['posicion'];
+        $player->player_alias = $data['alias'];
+
+        if($data['picture']){
+            $player->player_face_route = $data['picture'];
+        }
+
+        $player->saveorfail();
+
+        return response()->json([
+            'message' => 'Jugador Editado Correctamente',
+            'status' => 'OK',
+            'id' => $data['id']
         ]);
     }
 

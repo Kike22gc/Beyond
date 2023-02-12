@@ -2,7 +2,7 @@
     <v-app :class="getState">
         <Header v-if="authentication"></Header>
         <v-main>
-            <Login v-if="authentication === false"></Login>
+            <Index v-if="authentication === false"></Index>
             <router-view v-if="authentication"></router-view>
         </v-main>
         <Footer></Footer>
@@ -11,12 +11,12 @@
 
 <script>
 //import ServerBus from '../eventBus';
-import Login from "./views/login.vue";
+import Index from "./views/index.vue";
 import Header from "./header.vue";
 import Footer from "./footer.vue";
 
 export default {
-    components: { Login, Header, Footer },
+    components: { Index, Header, Footer },
     name: "app",
 
     data() {

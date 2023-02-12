@@ -53,12 +53,15 @@
  Vue.component('Header', require('./components/header.vue').default);
  Vue.component('Footer', require('./components/footer.vue').default);
 
- Vue.component('home_calendario', require('./components/fragments/home/home_calendario.vue').default);
- Vue.component('home_bottom', require('./components/fragments/home/home_bottom.vue').default);
- Vue.component('home_clasificacion', require('./components/fragments/home/home_clasificacion.vue').default);
- Vue.component('home_partido', require('./components/fragments/home/home_partido.vue').default);
+ Vue.component('home_calendario', require('./components/fragments/home/entrenador/home_calendario.vue').default);
+ Vue.component('home_bottom', require('./components/fragments/home/entrenador/home_bottom.vue').default);
+ Vue.component('home_clasificacion', require('./components/fragments/home/entrenador/home_clasificacion.vue').default);
+ Vue.component('home_partido', require('./components/fragments/home/entrenador/home_partido.vue').default);
 
  Vue.component('nuevo_jugador', require('./components/dialogs/plantilla_nuevo_jugador.vue').default);
+ Vue.component('editar_jugador', require('./components/dialogs/plantilla_editar_jugador.vue').default);
+ Vue.component('ver_jugador', require('./components/dialogs/plantilla_ver_jugador.vue').default);
+ Vue.component('confirm_edit_jugador', require('./components/dialogs/plantilla_confirmar_jugador.vue').default);
 
  const routes = [
      { path: '/', component: ("app").default },

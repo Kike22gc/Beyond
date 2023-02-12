@@ -24,11 +24,11 @@ class UserController extends BaseController
         $fecha_fin_sub = date('Y-m-d 00:00:00', strtotime('+1 year, +1 day'));
 
         $user = User::create([
-            'name' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'],),
-            'max_teams' => $data['sub_type'],    
-            'subscription_end_at' => $fecha_fin_sub,
+            'user_name' => $data['username'],
+            'user_email' => $data['email'],
+            'user_password' => bcrypt($data['password']),
+            'user_max_teams' => $data['sub_type'],    
+            'user_expiration_date' => $fecha_fin_sub,
         ]);
 
         return response()->json([
@@ -88,7 +88,9 @@ class UserController extends BaseController
     public function user(Request $request)
     {
         $user = $request->user();
-        $teams = Teams::where('user_id', $user['id'])->first();
+        if ($user) {
+            $teams = Teams::where('user_id', $user['id'])->first();
+        }
 
         if ($user instanceof User) {
             $json = array_merge(

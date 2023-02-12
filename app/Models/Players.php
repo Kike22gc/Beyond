@@ -20,8 +20,11 @@ class Players extends Model
         'player_surname',
         'player_alias',
         'player_birthdate',
+        'player_height',
+        'player_weight',
         'player_face_route',
         'player_number',
+        'player_posicion',
     ];
 
     protected bool $_isRoot = false;

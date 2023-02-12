@@ -41,7 +41,7 @@
                                             name="name"
                                             label="Nombre"
                                             type="text"
-                                            v-model="var_name"
+                                            v-model="player.player_name"
                                         ></v-text-field>
                                     </v-col>
                                     <v-col cols="6">
@@ -49,7 +49,7 @@
                                             name="surname"
                                             label="Apellidos"
                                             type="text"
-                                            v-model="var_apellidos"
+                                            v-model="player.player_surname"
                                         ></v-text-field>
                                     </v-col>
                                 </v-row>
@@ -59,7 +59,7 @@
                                             name="alias"
                                             label="Alias"
                                             type="text"
-                                            v-model="var_alias"
+                                            v-model="player.player_alias"
                                         ></v-text-field>
                                     </v-col>
                                     <v-col cols="6">
@@ -78,7 +78,7 @@
                                                 readonly
                                                 hide-details
                                                 label="Fecha de Nacimiento"
-                                                :value="var_fecha"
+                                                :value="player.player_birthdate"
                                                 v-on="on"
                                             ></v-text-field>
                                             </template>
@@ -99,7 +99,7 @@
                                             name="altura"
                                             label="Altura"
                                             type="number"
-                                            v-model="var_altura"
+                                            v-model="player.player_height"
                                         ></v-text-field>
                                     </v-col>
                                     <v-col>
@@ -108,7 +108,7 @@
                                             name="Peso"
                                             label="Peso"
                                             type="number"
-                                            v-model="var_peso"
+                                            v-model="player.player_weight"
                                         ></v-text-field>
                                     </v-col>
                                 </v-row>
@@ -119,14 +119,14 @@
                                             name="dorsal"
                                             label="Dorsal"
                                             type="number"
-                                            v-model="var_dorsal"
+                                            v-model="player.player_number"
                                         ></v-text-field>
                                     </v-col>
                                     <v-col>
                                         <v-select
                                             style="font-size:1.5em"
                                             label="Posicion"
-                                            v-model="var_posicion"
+                                            v-model="player.player_posicion"
                                             :items="PosicionList"
                                             item-text="Posicion"
                                             item-value="Posicion"
@@ -153,8 +153,8 @@
 <script>
 import axios from "axios";
 export default {
-    props: ["dialog"],
-    name: "NuevoJugador",
+    props: ["dialog", "player"],
+    name: "EditarJugador",
 
     data() {
         return {
@@ -163,14 +163,6 @@ export default {
             file: null,
 
             var_form: false,
-            var_name: null,
-            var_apellidos: null,
-            var_alias: null,
-            var_altura: null,
-            var_peso: null,
-            var_dorsal: null,
-            var_fecha: null,
-            var_posicion: null,
             var_team_active : this.$store.getters.getTeamActive,
             var_ruta_imagen: null,
 
@@ -207,9 +199,13 @@ export default {
     },
 
     watch: {
+        dialog() {
+            this.image_url = this.player.player_face_route;
+            this.dateValue = this.player.player_birthdate;
+        },
         dateValue(newValue) {
             const arrayFecha = newValue.split("-");
-            this.var_fecha = arrayFecha[2] + "/" + arrayFecha[1] + "/" + arrayFecha[0];
+            this.player.player_birthdate = arrayFecha[2] + "/" + arrayFecha[1] + "/" + arrayFecha[0];
         }
     },
 
@@ -233,12 +229,12 @@ export default {
 
         createJugador: function () {
 
-            if (this.image_url !== null) {
+            if (this.image_url !== null && this.image_url !== this.player.player_face_route) {
                 //SUBIR IMAGEN AL SERVIDOR
                 this.uploadFile();
             }
             else {
-                this.crearJugador();
+                this.editarJugador();
             }
         },
         
@@ -257,32 +253,32 @@ export default {
                 )
                 .then((response) => {
                     this.var_ruta_imagen = response.data.path;
-                    this.crearJugador();
+                    this.editarJugador();
                 })
                 .catch((error) => {
                     alert("Error al subir la imagen");
                 });
         },
 
-        crearJugador: function () {
+        editarJugador: function () {
             let datos = {
-                name: this.var_name,
-                surname: this.var_apellidos,
-                alias: this.var_alias,
+                id: this.player.player_id,
+                name: this.player.player_name,
+                surname: this.player.player_surname,
+                alias: this.player.player_alias,
                 birthdate: this.dateValue,
-                height: this.var_altura,
-                weight: this.var_peso,
-                number: this.var_dorsal,
-                posicion: this.var_posicion,
+                height: this.player.player_height,
+                weight: this.player.player_weight,
+                number: this.player.player_number,
+                posicion: this.player.player_posicion,
                 picture: this.var_ruta_imagen,
-                team_active: this.var_team_active,
             };
             
-            axios.post('/api/player/create', datos).then((response) => {
+            axios.post('/api/player/edit', datos).then((response) => {
                 location.reload();
             })
             .catch((error) => {
-                alert("Error al crear el equipo para el usuario");
+                alert("Error al guardar la edicion del jugador");
             });
         },
 
