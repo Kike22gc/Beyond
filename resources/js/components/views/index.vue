@@ -6,22 +6,22 @@
                <v-flex md8>
                   <v-card class="elevation-12">
                      <v-row>
-                        <v-col>
+                        <v-col cols="5">
                            <img width="100%" height="auto" src="images/login.png"/>
                         </v-col>
-                        <v-col v-if="var_showScreen == null"><!--INICIO-->
+                        <v-col cols="7" v-if="var_showScreen == null"><!--INICIO-->
                            <v-container fluid fill-height>
                               <v-layout align-center justify-center>
                                  <v-flex md8>
                                     <v-row>
                                        <v-col cols="1"></v-col>
                                        <v-col cols="5">
-                                          <v-btn text @click="var_showScreen = 'login'"><v-icon style="font-size:6em">login</v-icon></v-btn><br><br>
-                                          <v-btn text @click="var_showScreen = 'login'">INICIAR SESION</v-btn>
+                                          <v-btn @click="var_showScreen = 'login'" plain><v-icon style="font-size:6em">login</v-icon></v-btn><br><br>
+                                          <v-btn @click="var_showScreen = 'login'" plain>INICIAR SESION</v-btn>
                                        </v-col>
                                        <v-col cols="5">
-                                          <v-btn text @click="var_showScreen = 'signUp'"><v-icon style="font-size:6em">person_add</v-icon></v-btn><br><br>
-                                          <v-btn text @click="var_showScreen = 'signUp'">REGISTRARSE</v-btn>
+                                          <v-btn @click="var_showScreen = 'signUp'" plain><v-icon style="font-size:6em">person_add</v-icon></v-btn><br><br>
+                                          <v-btn @click="var_showScreen = 'signUp'" plain>REGISTRARSE</v-btn>
                                        </v-col>
                                        <v-col cols="1"></v-col>
                                     </v-row>
@@ -29,7 +29,7 @@
                               </v-layout>
                            </v-container>
                         </v-col>
-                        <v-col v-if="var_showScreen == 'signUp'"><!--REGISTRAR USUARIO-->
+                        <v-col cols="7" v-if="var_showScreen == 'signUp'"><!--REGISTRAR USUARIO-->
                            <span align="center"><h1>REGISTRARSE</h1></span>
                            <v-form ref="form" v-model="var_form_signUp_valid">
                               <v-row class="mt-2"> <!--ROL-->
@@ -120,7 +120,7 @@
                               </v-row>
                            </v-form>
                         </v-col>
-                        <v-col v-if="var_showScreen == 'login'"><!--INICIAR SESION-->
+                        <v-col cols="7" v-if="var_showScreen == 'login'"><!--INICIAR SESION-->
                            <span align="center"><h1>INICIAR SESION</h1></span>  
                            <v-form ref="form" v-model="var_form_login_valid">
                               <v-row class="mt-0"><!--EMAIL-->
@@ -137,7 +137,7 @@
                                  </v-col>
                                  <v-spacer></v-spacer>
                               </v-row>
-                              <v-row clas="mt-0"><!--CONTRASEÑA---->
+                              <v-row clas="mt-0"><!--CONTRASEÑA-->
                                  <v-spacer></v-spacer>
                                  <v-col cols="10">
                                     <v-text-field
@@ -158,7 +158,7 @@
                                  </v-col>
                                  <v-col cols="4"></v-col>
                                  <v-col cols="3">
-                                    <v-btn width="100%" color="primary" :disabled="!var_form_signUp_valid">INICIAR SESION</v-btn>
+                                    <v-btn width="100%" color="primary" :disabled="!var_form_login_valid">INICIAR SESION</v-btn>
                                  </v-col>
                                  <v-col cols="1"></v-col>
                               </v-row>
@@ -223,8 +223,8 @@ export default {
             let Self = this;
             
             let credenciales = {
-                email: this.var_email,
-                password: this.var_password,
+                email: this.var_user_email,
+                password: this.var_user_password,
             };
 
             axios
@@ -244,10 +244,10 @@ export default {
       signUp: function ()
         {
             let credenciales = {
-                username: this.var_name,
-                email: this.var_email,
-                password: this.var_password,
-                sub_type: this.var_sub_type,
+                username: this.var_user_name,
+                email: this.var_user_email,
+                password: this.var_user_password,
+                role: this.var_user_role,
             };
 
             axios
